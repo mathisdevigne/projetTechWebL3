@@ -1,0 +1,4 @@
+site/config:
+  services.yaml
+  packages/dev/web_profiler.yaml
+  packages/security.yaml

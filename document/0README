@@ -1,0 +1,19 @@
+liste_produits_bis.html
+  un exemple de page listant tous les produits. Vous êtes libre
+  de la présentation.
+
+panier.html
+un exemple de page gérant le panier. Vous êtes libre de la
+  présentation.
+
+verif_archive.sh
+  permet de vérifier votre archive
+  syntaxe (attention ne pas utiliser "source") :
+      $ ./verif_archive.sh subrenat zrour
+  il ne doit rester aucune erreur
+  s'il y a des warning, assurez-vous que c'est normal
+
+ls-R.txt
+  un exemple de fichier listant les fichiers de config uniquement
+  qui ont été modifiés ou créés.
+  Vous êtes libre de la présentation.

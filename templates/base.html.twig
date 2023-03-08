@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <div id="menu">
+            {{ render(controller('App\\Controller\\MenuController::menuAction')) }}
+        </div>
+
+        <div id="vue">
+            <h1>{% block titre_principal %}{% endblock %}</h1>
+            {% block vue %}{% endblock %}
+        </div>
+
+
+        {% if app.session.flashBag.get('info') is defined %}
+            <div id="flash">
+                <p>Messages flash : </p>
+                <ul>
+                    {% for msg in app.session.flashBag.get('info') %}
+                        <li>{{ msg }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div id="footer">
+            {{ include('footer.html.twig') }}
+        </div>
+    </body>
+</html>
+

@@ -7,7 +7,7 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-
+/database
 
 
 # Cache and logs (Symfony2)
