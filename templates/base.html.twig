@@ -15,7 +15,7 @@
         </div>
 
 
-        {% if app.session.flashBag.get('info') is defined %}
+        {% if app.session.flashBag.get('info').get(0) is defined %}
             <div id="flash">
                 <p>Messages flash : </p>
                 <ul>
