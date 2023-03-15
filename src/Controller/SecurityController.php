@@ -14,6 +14,7 @@ class SecurityController extends AbstractController
     {
         if ($this->getUser()) {
             $this->addFlash('info', 'Authentification réussie');
+            return $this->redirectToRoute('bienvenue');
         }
 
         // get the login error if there is one
@@ -27,5 +28,6 @@ class SecurityController extends AbstractController
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): Response
     {
+        $this->addFlash('info', 'Déconnexion réussie');
     }
 }

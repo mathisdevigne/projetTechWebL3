@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gerer{% endblock %}
+
+{% block titre_principal %}Gerer les clients (superadmin) :{% endblock %}
+
+{% block vue %}
+    {% if clients is defined %}
+        <p>Clients : </p>
+        <table>
+            <tr>
+                {% for key in clients|first|keys %}
+                    <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+            {% for client in clients %}
+                <tr>
+                    {% for val in client %}
+                        <td>
+                            {% if val is iterable %}
+                                {% for valval in val %}
+                                    {{ valval }}
+                                {% endfor %}
+                            {% else %}
+                                {{ val }}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                    {% if 'ROLE_SUPER_ADMIN' not in client['roles'] %}
+                    <td><button onclick="window.location.href='/client/gerer/supprimer/{{ client['id'] }}';">Supprimer</button></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Il n'y a pas de clients</p>
+    {% endif %}
+{% endblock %}

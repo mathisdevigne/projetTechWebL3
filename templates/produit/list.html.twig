@@ -9,14 +9,14 @@
         <p>Produits : </p>
         <table>
         <tr>
-            {% for key in produits[1]|keys %}
+            {% for key in produits|first|keys %}
             <th>{{ key }}</th>
             {% endfor %}
         </tr>
         {% for produit in produits %}
         <tr>
             {% for val in produit %}
-            <td>{{ val }}</td>
+                <td>{{ val }}</td>
             {% endfor %}
         </tr>
         {% endfor %}
