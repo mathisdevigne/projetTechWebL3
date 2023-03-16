@@ -17,3 +17,51 @@ ls-R.txt
   un exemple de fichier listant les fichiers de config uniquement
   qui ont été modifiés ou créés.
   Vous êtes libre de la présentation.
+
+
+Fini :
+2 Presentation du site
+2.1 Fonctionnement general
+2.2 Graphisme
+
+3.1 Bases de donnees
+3.2 Authentification
+3.2.1 Version 1 du site : pseudo-identification . . . . . . . . . . . . . . . . . . . .
+3.2.2 Version 2 du site : vraie identification . . . . . . . . . . . . . . . . . . . . .
+3.2.3 Aspect technique . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.3 Templates
+
+4.2 Page de bienvenue
+4.4 Connexion/deconnexion
+4.3 Menu
+4.5 Creer un compte client
+4.6 Editer/modifier son profil
+4.8 Gerer son panier
+4.9 Gerer les utilisateurs
+4.10 Ajouter un produit
+4.11 Ajouter un administrateur
+4.12 Recapitulatif
+
+
+Reste :
+3 Considerations techniques
+3.4 Divers
+ - Verifier aucun lien en dur (dans les twig par exemple)
+
+4 Fonctionnement
+4.7 Lister les produits du magasin
+ - Probleme choix deroulant
+
+4.13 Service
+ - debuger
+
+Rien fait :
+
+4.1 CSS
+4.14 Mail
+
+5 Travail a rendre
+
+Après :
+1 Explications et planning
+

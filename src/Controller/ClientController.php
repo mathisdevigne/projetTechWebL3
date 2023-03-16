@@ -45,7 +45,7 @@ class ClientController extends AbstractController
                 $newCli->setRoles(['ROLE_CLIENT']);
                 $hashedPass = $passwordHasher->hashPassword($newCli, $newCli->getPassword());
                 $newCli->setPassword($hashedPass);
-
+                //TODO add service password
                 $em->persist($newCli);
                 $em->flush();
                 $this->addFlash('info', 'Vous avez créé votre compte.');
@@ -61,12 +61,12 @@ class ClientController extends AbstractController
         return $this->render('/client/ajouter.html.twig', ['form'=>$form]);
     }
     #[Route('/gerer', name: '_gerer')]
+    #[IsGranted('ROLE_ADMIN')]
     public function gererClientAction(Request $request, EntityManagerInterface $em): Response
     {
         if($this->isGranted('ROLE_SUPER_ADMIN')){
             $this->addFlash('info', 'Accesible seulement aux administateurs, vous avez été redirigé.');
             return $this->redirectToRoute('bienvenue');
-
         }
         $clientRep = $em->getRepository(Client::class);
         $clientsObj = $clientRep->findAll();
@@ -145,4 +145,44 @@ class ClientController extends AbstractController
 
         return $this->render('/client/ajouter-admin.html.twig', ['form'=>$form]);
     }
+    #[Route('/profil', name: '_profil', )]
+    public function profilAction(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $form = $this->createFormBuilder($this->getUser())
+            ->add('login', TextType::class)
+            ->add('nom', TextType::class)
+            ->add('prenom', TextType::class)
+            ->add('password', TextType::class)
+            ->add('dateNaissance', DateType::class)
+            ->add('save', SubmitType::class, ['label' => 'Modifier votre compte client'])
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            if($form->isValid()){
+                $newCli = $form->getData();
+
+                $hashedPass = $passwordHasher->hashPassword($newCli, $newCli->getPassword());
+                $newCli->setPassword($hashedPass);
+
+                $em->persist($newCli);
+                $em->flush();
+                $this->addFlash('info', 'Vous avez modifié votre profil.');
+
+                if($this->isGranted('ROLE_SUPER_ADMIN')){
+                    return $this->redirectToRoute('bienvenue');
+                }
+                else{
+                    return $this->redirectToRoute('produit_list');
+                }
+            }
+            else{
+                $this->addFlash('info', 'Le formulaire n\'est pas valide');
+            }
+
+        }
+
+        return $this->render('/client/profil.html.twig', ['form'=>$form]);
+    }
+
 }

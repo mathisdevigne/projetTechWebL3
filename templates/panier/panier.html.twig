@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gerer{% endblock %}
+
+{% block titre_principal %}Votre panier :{% endblock %}
+
+{% block vue %}
+    {% if paniers is defined %}
+        <p>paniers : </p>
+        <table>
+            <tr>
+                {% for key in paniers|first|keys|slice(1) %}
+                    <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+            {% for panier in paniers %}
+                <tr>
+                    <td>{{ panier['Libelle'] }}</td>
+                    <td>{{ panier['Quantite'] }}</td>
+                    <td>{{ panier['Prix'] }}$</td>
+                    <td><button onclick="window.location.href='{{ path('panier_supprimer', {'idProd':panier['idProd']}) }}';">Supprimer</button></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <button onclick="window.location.href='{{ path('panier_commander') }}';">Commander</button>
+        <button onclick="window.location.href='{{ path('panier_vider') }}';">Vider le panier</button>
+    {% else %}
+        <p>Il n'y a pas de panier</p>
+    {% endif %}
+{% endblock %}

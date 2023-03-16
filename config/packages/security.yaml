@@ -39,7 +39,6 @@ security:
         - { path: ^/$, roles: PUBLIC_ACCESS }
         - { path: ^/login$, roles: PUBLIC_ACCESS }
         - { path: ^/client/creer$, roles: PUBLIC_ACCESS }
-        #- { path: ^/client/gerer, roles: ROLE_ADMIN }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
 
 

@@ -1,1 +1,19 @@
-<h4>Menu</h4>
+
+<img style="width:100%; max-height: 200px;" id="footerImg" src="{{ headerUrl }}">
+<menu>
+    Bienvenue {{ nom }}<br>
+    {% if passSec is defined and not passSec %}
+        Votre mots de passe n'est pas sécurisé !<br>
+    {% endif %}
+    {% if nbArticlePanier is defined %}
+        {{ nbArticlePanier }} article dans le panier<br>
+    {% endif %}
+    Menu {{ role }}:
+    {% for key,val in menu %}
+        {% if key == 'Truman Show' %}
+            <li><button onclick="window.location.href='{{ val }}';">{{ key }}</button></li>
+        {% else %}
+            <li><button onclick="window.location.href='{{ path(val) }}';">{{ key }}</button></li>
+        {% endif %}
+    {% endfor %}
+</menu>

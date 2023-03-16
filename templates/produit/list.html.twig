@@ -2,22 +2,25 @@
 
 {% block title %}Liste des produits{% endblock %}
 
-{% block titre_principal %}Liste des produits{% endblock %}
+{% block titre_principal %}Liste des produits : {% endblock %}
 
 {% block vue %}
     {% if produits is defined %}
-        <p>Produits : </p>
         <table>
         <tr>
-            {% for key in produits|first|keys %}
+            {% for key in produits|first|keys|slice(1,-1) %}
             <th>{{ key }}</th>
             {% endfor %}
         </tr>
         {% for produit in produits %}
         <tr>
-            {% for val in produit %}
-                <td>{{ val }}</td>
-            {% endfor %}
+            <td>{{ produit['Libelle'] }}</td>
+            <td>{{ produit['Prix'] }}</td>
+            <td>{{ produit['Quantite'] }}</td>
+            <td>
+            <td><button onclick="window.location.href='{{ path('panier_ajouter', {'idProd':produit['id'], 'quantite':1}) }}';">Ajouter au panier</button></td>
+{# {{ produit['Commander'] }} #}
+            </td>
         </tr>
         {% endfor %}
         </table>
