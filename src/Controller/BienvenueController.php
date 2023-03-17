@@ -16,6 +16,6 @@ class BienvenueController extends AbstractController
     #[Route('', name: '')]
     public function bienvenueAction(): Response
     {
-        return $this->render('bienvenue/bienvenue.html.twig');
+        return $this->render('vente/bienvenue/bienvenue.html.twig');
     }
 }

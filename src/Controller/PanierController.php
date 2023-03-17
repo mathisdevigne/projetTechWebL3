@@ -140,6 +140,6 @@ class PanierController extends AbstractController
             );
         }
 
-        return $this->render('/panier/panier.html.twig', array('paniers'=>$paniers));
+        return $this->render('/vente/panier/panier.html.twig', array('paniers'=>$paniers));
     }
 }

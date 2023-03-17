@@ -54,7 +54,7 @@ class ProduitController extends AbstractController
         }
         $args = array('produits' => $produits);
 
-        return $this->render('/produit/list.html.twig', $args);
+        return $this->render('/vente/produit/list.html.twig', $args);
     }
 
     #[Route('/ajouter', name: '_ajouter')]
@@ -95,6 +95,6 @@ class ProduitController extends AbstractController
         }
 
 
-        return $this->render('/produit/ajouter.html.twig', ['form'=>$form]);
+        return $this->render('/vente/produit/ajouter.html.twig', ['form'=>$form]);
     }
 }

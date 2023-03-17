@@ -58,7 +58,7 @@ class ClientController extends AbstractController
         }
 
 
-        return $this->render('/client/ajouter.html.twig', ['form'=>$form]);
+        return $this->render('/vente/client/ajouter.html.twig', ['form'=>$form]);
     }
     #[Route('/gerer', name: '_gerer')]
     #[IsGranted('ROLE_ADMIN')]
@@ -83,7 +83,7 @@ class ClientController extends AbstractController
             );
 
         }
-        return $this->render('/client/gerer.html.twig', ['clients'=>$clients]);
+        return $this->render('/vente/client/gerer.html.twig', ['clients'=>$clients]);
     }
     #[Route('/gerer/supprimer/{id}', name: '_supprimer', requirements: ['id' => '0|[1-9]\d*'],)]
     public function supprClientAction(int $id, Request $request, EntityManagerInterface $em): Response
@@ -143,7 +143,7 @@ class ClientController extends AbstractController
         }
 
 
-        return $this->render('/client/ajouter-admin.html.twig', ['form'=>$form]);
+        return $this->render('/vente/client/ajouter-admin.html.twig', ['form'=>$form]);
     }
     #[Route('/profil', name: '_profil', )]
     public function profilAction(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
@@ -182,7 +182,7 @@ class ClientController extends AbstractController
 
         }
 
-        return $this->render('/client/profil.html.twig', ['form'=>$form]);
+        return $this->render('/vente/client/profil.html.twig', ['form'=>$form]);
     }
 
 }

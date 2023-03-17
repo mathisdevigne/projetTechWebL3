@@ -75,6 +75,6 @@ class MenuController extends AbstractController
             $client = new Client($this->getUser());
             $args['passSec'] = false;// $passwordService->isPasswordStrongEnough($client, $hasher); todo fix
         }
-        return $this->render('menu.html.twig', $args);
+        return $this->render('vente/menu.html.twig', $args);
     }
 }

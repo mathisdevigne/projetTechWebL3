@@ -1,4 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'vente/vente.html.twig' %}
+
+{% block css %} {{ parent() }}<link href="{{ asset('style/bienvenue.css') }}" rel="stylesheet" type="text/css">{% endblock %}
 
 {% block title %}Bienvenue !{% endblock %}
 

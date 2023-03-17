@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{%block css %} {{ parent() }} <link href="{{ asset('style/vente.css') }}" rel="stylesheet" type="text/css">{% endblock %}
+
+{% block body %}
+    <div id="menu">
+        {{ render(controller('App\\Controller\\MenuController::menuAction')) }}
+    </div>
+
+    <div id="vue">
+        <h2>{% block titre_principal %}{% endblock %}</h2>
+        {% block vue %}{% endblock %}
+    </div>
+
+
+    {% if app.session.flashBag.get('info') is defined %}
+        <div id="flash">
+            <p>Messages flash : </p>
+            <ul>
+                {% for msg in app.session.flashBag.get('info') %}
+                    <li>{{ msg }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div id="footer">
+        {{ include('vente/footer.html.twig') }}
+    </div>
+{% endblock %}
+
