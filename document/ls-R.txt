@@ -1,4 +1,22 @@
 site/config:
-  services.yaml
-  packages/dev/web_profiler.yaml
-  packages/security.yaml
+  packages/security.yaml:
+        providers:
+            app_user_provider:
+                entity:
+                    class: App\Entity\Client
+                    property: login
+                        firewalls:
+        main:
+            provider: app_user_provider
+            custom_authenticator: App\Security\ClientAuthenticator
+            logout:
+                path: app_logout
+                target: bienvenue
+        role_hierarchy:
+            ROLE_SUPER_ADMIN : [ROLE_ADMIN, ROLE_CLIENT]
+            ROLE_ADMIN : ROLE_CLIENT
+         access_control:
+          - { path: ^/$, roles: PUBLIC_ACCESS }
+          - { path: ^/login$, roles: PUBLIC_ACCESS }
+            - { path: ^/client/creer$, roles: PUBLIC_ACCESS }
+        -    { path: ^/, roles: IS_AUTHENTICATED_FULLY }

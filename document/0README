@@ -31,6 +31,7 @@ Fini :
 3.2.3 Aspect technique . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 3.3 Templates
 
+4.1 CSS
 4.2 Page de bienvenue
 4.4 Connexion/deconnexion
 4.3 Menu
@@ -42,6 +43,8 @@ Fini :
 4.11 Ajouter un administrateur
 4.12 Recapitulatif
 
+5 Travail a rendre
+-ls-R.txt
 
 Reste :
 3 Considerations techniques
@@ -55,12 +58,21 @@ Reste :
 4.13 Service
  - debuger
 
+5 Travail a rendre
+ - bd.sql
+ - rapport
+   - schema bd
+   - orga code
+   - tuto service
+   — (facultatif) l’explication de l’outil Mailer.
+   — des points particuliers sur ce que vous avez fait sur le framework
+
 Rien fait :
 
-4.1 CSS
 4.14 Mail
 
-5 Travail a rendre
+
+
 
 Après :
 1 Explications et planning
