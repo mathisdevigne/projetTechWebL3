@@ -130,16 +130,20 @@ class PanierController extends AbstractController
             return $this->redirectToRoute('produit_list');
         }
 
+        $args = array();
         $paniers = array();
         foreach($em->getRepository(Panier::class)->findByClient($this->getUser()->getId()) as &$panierObj){
-            $paniers[] = array('id'=>$panierObj->getId(),
+            if(!array_key_exists('total', $args)) {$args['total'] = 0;}
+            $panier = array('id'=>$panierObj->getId(),
                 'Libelle'=>$panierObj->getProduit()->getLibelle(),
                 'Quantite'=>$panierObj->getQuantite(),
                 'Prix'=>$panierObj->getProduit()->getPrix()*$panierObj->getQuantite(),
                 'idProd'=>$panierObj->getProduit()->getId(),
             );
+            $paniers[] = $panier;
+            $args['total'] += $panier['Prix'];
         }
-
-        return $this->render('/vente/panier/panier.html.twig', array('paniers'=>$paniers));
+        $args['paniers'] = $paniers;
+        return $this->render('/vente/panier/panier.html.twig', $args);
     }
 }
