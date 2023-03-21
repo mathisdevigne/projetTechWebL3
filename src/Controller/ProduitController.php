@@ -34,25 +34,28 @@ class ProduitController extends AbstractController
             foreach ($produit->getPaniers() as &$panier){
                 $min -= $panier->getQuantite();
             }
-            $arrayChoice = array();
-            for($i = $min; $i <= $produit->getQuantite(); $i++) $arrayChoice[strval($i)] = $i;
-            $form = $this->createFormBuilder()
-                ->add('idProd', HiddenType::class, array('data'=>$produit->getId()))
-                ->add('quantite', ChoiceType::class, array('choices'=>$arrayChoice, 'data'=>'0'))
-                ->add('save', SubmitType::class, ['label' => 'Ajouter au panier'])->getForm();
-
-            $form->handleRequest($request);
-            if ($form->isSubmitted()) {
-                if($form->isValid()){
-                    return $this->redirectToRoute('panier_ajouter', $form->getData());
-                }
-            }
-            $produits[$produit->getId()] = array('id'=>$produit->getId(),
+            $arrayProd = array('id'=>$produit->getId(),
                 'Libelle'=>$produit->getLibelle(),
                 'Prix'=>$produit->getPrix(),
-                'Quantite'=>$produit->getQuantite(),
-                'Commander' => $form->createView(),
-            );
+                'Quantite'=>$produit->getQuantite());
+            if($produit->getQuantite() != 0){
+                $arrayChoice = array();
+                for($i = $min; $i <= $produit->getQuantite(); $i++) $arrayChoice[strval($i)] = $i;
+                $form = $this->createFormBuilder()
+                    ->add('idProd', HiddenType::class, array('data'=>$produit->getId()))
+                    ->add('quantite', ChoiceType::class, array('choices'=>$arrayChoice, 'data'=>'0'))
+                    ->add('save', SubmitType::class, ['label' => 'Ajouter au panier'])->getForm();
+
+                $form->handleRequest($request);
+                if ($form->isSubmitted()) {
+                    if($form->isValid()){
+                        return $this->redirectToRoute('panier_ajouter', $form->getData());
+                    }
+                }
+
+                $arrayProd['Commander'] = $form->createView();
+            }
+            $produits[$produit->getId()] = $arrayProd;
 
         }
         $args = array('produits' => $produits);

@@ -19,7 +19,11 @@
             <td>{{ produit['Quantite'] }}</td>
             <td>
             <td>{# <button onclick="window.location.href='{{ path('panier_ajouter', {'idProd':produit['id'], 'quantite':1}) }}';">Ajouter au panier</button></td> #}
-                {{ form(produit['Commander']) }}
+                {% if (produit['Commander']) is defined %}
+                    {{ form(produit['Commander']) }}
+                {% else %}
+                    Rupture de stock
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
