@@ -22,19 +22,7 @@ ls-R.txt
 Fini :
 2 Presentation du site
 3 Considerations techniques
-
-4.1 CSS
-4.2 Page de bienvenue
-4.4 Connexion/deconnexion
-4.3 Menu
-4.5 Creer un compte client
-4.6 Editer/modifier son profil
-4.8 Gerer son panier
-4.9 Gerer les utilisateurs
-4.10 Ajouter un produit
-4.11 Ajouter un administrateur
-4.12 Recapitulatif
-4.13 Service
+4 Fonctionnement
 
 5 Travail a rendre
  - ls-R.txt
@@ -44,9 +32,6 @@ Fini :
 
 Reste :
 
-4 Fonctionnement
-4.7 Lister les produits du magasin
- - Probleme choix deroulant
 
 
 5 Travail a rendre

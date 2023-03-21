@@ -18,8 +18,8 @@
             <td>{{ produit['Prix'] }}</td>
             <td>{{ produit['Quantite'] }}</td>
             <td>
-            <td><button onclick="window.location.href='{{ path('panier_ajouter', {'idProd':produit['id'], 'quantite':1}) }}';">Ajouter au panier</button></td>
-{# {{ produit['Commander'] }} #}
+            <td>{# <button onclick="window.location.href='{{ path('panier_ajouter', {'idProd':produit['id'], 'quantite':1}) }}';">Ajouter au panier</button></td> #}
+                {{ form(produit['Commander']) }}
             </td>
         </tr>
         {% endfor %}

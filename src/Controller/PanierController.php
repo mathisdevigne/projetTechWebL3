@@ -23,9 +23,9 @@ class PanierController extends AbstractController
         }
         return false;
     }
-    #[Route('/ajouter/{idProd}/{quantite}', name: '_ajouter', requirements: ['idProd' => '0|[1-9]\d*','quantite' => '-?[1-9]\d*'] )]
+    #[Route('/ajouter/{idProd}/{quantite}', name: '_ajouter', requirements: ['idProd' => '0|[1-9]\d*','quantite' => '-?\d*'] )]
     public function ajouterAction(int $idProd, int $quantite, EntityManagerInterface $em): Response{
-        if($this->blockSuperAdmin()) {
+        if($this->blockSuperAdmin() || $quantite == 0) {
             return $this->redirectToRoute('produit_list');
         }
 
@@ -39,9 +39,12 @@ class PanierController extends AbstractController
         if(is_null($panier)){
             $panier = new Panier();
         }
-        elseif(($panier->getQuantite() + $quantite) <= 0){
+        elseif(($panier->getQuantite() + $quantite) < 0){
             $this->addFlash('info', 'Quantite incoherente');
             return $this->redirectToRoute('panier');
+        }
+        elseif(($panier->getQuantite() + $quantite) == 0){
+            return $this->redirectToRoute('panier_supprimer', array('idProd'=>$idProd));
         }
         $produit->setQuantite($produit->getQuantite() - $quantite);
         $panier->setQuantite($panier->getQuantite()+$quantite);
@@ -143,7 +146,9 @@ class PanierController extends AbstractController
             $paniers[] = $panier;
             $args['total'] += $panier['Prix'];
         }
-        $args['paniers'] = $paniers;
+        if(!empty($paniers)){
+            $args['paniers'] = $paniers;
+        }
         return $this->render('/vente/panier/panier.html.twig', $args);
     }
 }
