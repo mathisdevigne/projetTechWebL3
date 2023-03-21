@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Form\ProduitType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\ChoiceList\ChoiceList;
@@ -65,17 +66,9 @@ class ProduitController extends AbstractController
             $this->addFlash('info', 'Accesible seulement aux administateurs, vous avez été redirigé.');
             return $this->redirectToRoute('bienvenue');
         }
-        $produit = new Produit();
-        $produit->setPrix(1.0);
-        $produit->setLibelle('Libelle du produit');
-        $produit->setQuantite('0');
 
-        $form = $this->createFormBuilder($produit)
-            ->add('libelle', TextType::class)
-            ->add('prix', NumberType::class)
-            ->add('quantite', IntegerType::class)
-            ->add('save', SubmitType::class, ['label' => 'Ajouter le produit'])
-            ->getForm();
+        $form = $this->createForm(ProduitType::class);
+        $form->add('save', SubmitType::class, ['label' => 'Ajouter le produit']);
 
         $form->handleRequest($request);
 

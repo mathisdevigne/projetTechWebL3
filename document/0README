@@ -34,9 +34,13 @@ Fini :
 4.10 Ajouter un produit
 4.11 Ajouter un administrateur
 4.12 Recapitulatif
+4.13 Service
 
 5 Travail a rendre
--ls-R.txt
+ - ls-R.txt
+ - rapport
+   - schema bd
+   - tuto service
 
 Reste :
 
@@ -44,15 +48,11 @@ Reste :
 4.7 Lister les produits du magasin
  - Probleme choix deroulant
 
-4.13 Service
- - debuger
 
 5 Travail a rendre
  - bd.sql
  - rapport
-   - schema bd
    - orga code
-   - tuto service
    — (facultatif) l’explication de l’outil Mailer.
    — des points particuliers sur ce que vous avez fait sur le framework
 
