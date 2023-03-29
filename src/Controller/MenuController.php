@@ -67,16 +67,13 @@ class MenuController extends AbstractController
         $args['nom'] = $nom;
         $args['role']= $role;
         $args['headerUrl']= $header;
-        if($this->isGranted('ROLE_CLIENT') and !$this->isGranted('ROLE_SUPER_ADMIN')){
+        if($this->isGranted('ROLE_CLIENT')){
             $paniers = $em->getRepository(Panier::class)->findByClient($this->getUser());
             $quantite = 0;
             foreach($paniers as &$panier){
                 $quantite+=$panier->getQuantite();
             }
             $args['nbArticlePanier'] = $quantite;
-
-            $client = new Client($this->getUser());
-            $args['passSec'] = false;// $passwordService->isPasswordStrongEnough($client, $hasher); todo fix
         }
         return $this->render('vente/menu.html.twig', $args);
     }

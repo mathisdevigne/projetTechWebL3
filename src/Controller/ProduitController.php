@@ -32,7 +32,9 @@ class ProduitController extends AbstractController
         foreach ($produitsObj as &$produit){
             $min = 0;
             foreach ($produit->getPaniers() as &$panier){
-                $min -= $panier->getQuantite();
+                if($panier->getClient()->getId() == $this->getUser()->getId()){
+                    $min -= $panier->getQuantite();
+                }
             }
             $arrayProd = array('id'=>$produit->getId(),
                 'Libelle'=>$produit->getLibelle(),
@@ -67,11 +69,6 @@ class ProduitController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function ajouterAction(Request $request, EntityManagerInterface $em): Response
     {
-        if($this->isGranted('ROLE_SUPER_ADMIN')){
-            $this->addFlash('info', 'Accesible seulement aux administateurs, vous avez été redirigé.');
-            return $this->redirectToRoute('bienvenue');
-        }
-
         $form = $this->createForm(ProduitType::class);
         $form->add('save', SubmitType::class, ['label' => 'Ajouter le produit']);
 

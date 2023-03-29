@@ -18,7 +18,7 @@ class ClientType extends AbstractType
             ->add('password', TextType::class, ['label'=> 'password','attr'=>['placeholder'=> 'password']])
             ->add('nom', TextType::class, ['label'=> 'nom','attr'=>['placeholder'=> 'nom']])
             ->add('prenom', TextType::class, ['label'=> 'prenom','attr'=>['placeholder'=> 'prenom']])
-            ->add('dateNaissance', DateType::class)
+            ->add('dateNaissance', DateType::class, ['widget' => 'single_text'])
         ;
     }
 

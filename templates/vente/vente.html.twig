@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{%block css %} {{ parent() }} <link href="{{ asset('style/vente.css') }}" rel="stylesheet" type="text/css">{% endblock %}
+{%block css %}  <link href="{{ asset('style/vente.css') }}" rel="stylesheet" type="text/css">{% endblock %}
 
 {% block body %}
     <div id="menu">
@@ -12,7 +12,7 @@
     </div>
 
 
-    {% if app.session.flashBag.get('info') is defined %}
+    {% if app.session.flashBag.has('info') %}
         <div id="flash">
             <p>Messages flash : </p>
             <ul>

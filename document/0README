@@ -18,6 +18,8 @@ Fini :
 4 Fonctionnement
 
 5 Travail a rendre
+ - bd.sql
+ - mybase.db
  - ls-R.txt
  - rapport
    - schema bd
@@ -28,7 +30,6 @@ Reste :
 
 
 5 Travail a rendre
- - bd.sql
  - rapport
    - orga code
    — (facultatif) l’explication de l’outil Mailer.

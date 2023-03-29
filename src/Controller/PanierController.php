@@ -11,31 +11,26 @@ use Symfony\Component\DependencyInjection\Compiler\ResolveBindingsPass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/panier', name: 'panier')]
 class PanierController extends AbstractController
 {
-
-    public function blockSuperAdmin(): bool{
-        if($this->isGranted('ROLE_SUPER_ADMIN')) {
-            $this->addFlash('info', 'Les super administrateurs n\'ont pas de panier');
-            return true;
-        }
-        return false;
-    }
     #[Route('/ajouter/{idProd}/{quantite}', name: '_ajouter', requirements: ['idProd' => '0|[1-9]\d*','quantite' => '-?\d*'] )]
+    #[IsGranted('ROLE_CLIENT')]
     public function ajouterAction(int $idProd, int $quantite, EntityManagerInterface $em): Response{
-        if($this->blockSuperAdmin() || $quantite == 0) {
-            return $this->redirectToRoute('produit_list');
-        }
-
         $produit = $em->getRepository(Produit::class)->find($idProd);
         if(is_null($produit) || $produit->getQuantite() < $quantite ){
             $this->addFlash('info', 'Pas assez de quantite');
             return $this->redirectToRoute('produit_list');
         }
 
-        $panier = $em->getRepository(Panier::class)->findOneByProduit($produit);
+        $paniers = $em->getRepository(Panier::class)->findByProduit($produit);
+        $panier = null;
+        foreach($paniers as &$panierObj){
+            if($panierObj->getClient()->getId() == $this->getUser()->getId())
+                $panier = $panierObj;
+        }
         if(is_null($panier)){
             $panier = new Panier();
         }
@@ -59,10 +54,8 @@ class PanierController extends AbstractController
     }
 
     #[Route('/supprimer/{idProd}', name: '_supprimer', requirements: ['idProd' => '0|[1-9]\d*'] )]
+    #[IsGranted('ROLE_CLIENT')]
     public function supprimerAction(int $idProd, EntityManagerInterface $em): Response{
-        if($this->blockSuperAdmin()) {
-            return $this->redirectToRoute('produit_list');
-        }
 
         $produit = $em->getRepository(Produit::class)->find($idProd);
         if(is_null($produit)){
@@ -90,20 +83,19 @@ class PanierController extends AbstractController
 
 
     #[Route('/vider', name: '_vider', )]
+    #[IsGranted('ROLE_CLIENT')]
     public function viderAction(EntityManagerInterface $em): Response{
-        if($this->blockSuperAdmin()) {
-            return $this->redirectToRoute('produit_list');
-        }
-
         $paniers = $em->getRepository(Panier::class)->findByClient($this->getUser());
 
         foreach($paniers as &$panier){
-            $produit = $panier->getProduit();
-            $produit->setQuantite($produit->getQuantite() + $panier->getQuantite());
+            if($panier->getClient()->getId() == $this->getUser()->getId()){
+                $produit = $panier->getProduit();
+                $produit->setQuantite($produit->getQuantite() + $panier->getQuantite());
 
-            $em->persist($produit);
-            $em->remove($panier);
-            $em->flush();
+                $em->persist($produit);
+                $em->remove($panier);
+                $em->flush();
+            }
         }
         $this->addFlash('info', 'Panier vidé');
         return $this->redirectToRoute('panier');
@@ -111,28 +103,24 @@ class PanierController extends AbstractController
 
 
     #[Route('/commander', name: '_commander', )]
+    #[IsGranted('ROLE_CLIENT')]
     public function commanderAction(EntityManagerInterface $em): Response{
-        if($this->blockSuperAdmin()) {
-            return $this->redirectToRoute('produit_list');
-        }
-
         $paniers = $em->getRepository(Panier::class)->findByClient($this->getUser());
 
         foreach($paniers as &$panier){
-            $em->remove($panier);
-            $em->flush();
+            if($panier->getClient()->getId() == $this->getUser()->getId()) {
+                $em->remove($panier);
+                $em->flush();
+            }
         }
         $this->addFlash('info', 'Panier commandé');
         return $this->redirectToRoute('panier');
     }
 
     #[Route('', name: '', )]
+    #[IsGranted('ROLE_CLIENT')]
     public function panierAction(Request $request, EntityManagerInterface $em): Response
     {
-        if($this->blockSuperAdmin()) {
-            return $this->redirectToRoute('produit_list');
-        }
-
         $args = array();
         $paniers = array();
         foreach($em->getRepository(Panier::class)->findByClient($this->getUser()->getId()) as &$panierObj){
