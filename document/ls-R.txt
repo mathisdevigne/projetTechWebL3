@@ -13,7 +13,7 @@ site/config:
                 path: app_logout
                 target: bienvenue
         role_hierarchy:
-            ROLE_SUPER_ADMIN : [ROLE_ADMIN, ROLE_CLIENT]
+            ROLE_SUPER_ADMIN : ROLE_USER
             ROLE_ADMIN : ROLE_CLIENT
          access_control:
           - { path: ^/$, roles: PUBLIC_ACCESS }

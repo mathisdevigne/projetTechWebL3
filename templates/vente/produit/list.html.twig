@@ -8,17 +8,17 @@
     {% if produits is defined %}
         <table>
         <tr>
-            {% for key in produits|first|keys|slice(1,-1) %}
+            {% for key in produits|first|keys|slice(1) %}
             <th>{{ key }}</th>
             {% endfor %}
         </tr>
         {% for produit in produits %}
         <tr>
             <td>{{ produit['Libelle'] }}</td>
-            <td>{{ produit['Prix'] }}</td>
+            <td>{{ produit['Prix'] }}€</td>
             <td>{{ produit['Quantite'] }}</td>
             <td>
-            <td>{# <button onclick="window.location.href='{{ path('panier_ajouter', {'idProd':produit['id'], 'quantite':1}) }}';">Ajouter au panier</button></td> #}
+            <td>
                 {% if (produit['Commander']) is defined %}
                     {{ form(produit['Commander']) }}
                 {% else %}

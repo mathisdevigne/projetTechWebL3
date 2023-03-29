@@ -19,6 +19,10 @@ class PanierController extends AbstractController
     #[Route('/ajouter/{idProd}/{quantite}', name: '_ajouter', requirements: ['idProd' => '0|[1-9]\d*','quantite' => '-?\d*'] )]
     #[IsGranted('ROLE_CLIENT')]
     public function ajouterAction(int $idProd, int $quantite, EntityManagerInterface $em): Response{
+        if($quantite == 0){
+            $this->addFlash('info', 'Selectionnez une quantité');
+            return $this->redirectToRoute('produit_list');
+        }
         $produit = $em->getRepository(Produit::class)->find($idProd);
         if(is_null($produit) || $produit->getQuantite() < $quantite ){
             $this->addFlash('info', 'Pas assez de quantite');

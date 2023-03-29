@@ -40,7 +40,7 @@ class ProduitController extends AbstractController
                 'Libelle'=>$produit->getLibelle(),
                 'Prix'=>$produit->getPrix(),
                 'Quantite'=>$produit->getQuantite());
-            if($produit->getQuantite() != 0){
+            if($produit->getQuantite() != 0 || $min < 0){
                 $arrayChoice = array();
                 for($i = $min; $i <= $produit->getQuantite(); $i++) $arrayChoice[strval($i)] = $i;
                 $form = $this->createFormBuilder()

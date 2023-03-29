@@ -12,8 +12,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Table(name: 'i23_clients')]
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-//#[UniqueEntity(fields: ['nom', 'prenom'], message: 'Le couple nom prénom est déjà utilisé')]
-//#[UniqueEntity(fields: ['login'], message: 'Le login est déjà utilisé')]
+#[UniqueEntity(fields: ['nom', 'prenom'], message: 'Le couple nom prénom est déjà utilisé')]
+#[UniqueEntity(fields: ['login'], message: 'Le login est déjà utilisé')]
 class Client implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
